@@ -11,7 +11,7 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    {path: '/', component: Home },
+    {path: '/', component: Recommend },
     {path: '/recommend', component: Recommend },
     {path: '/singer', component: Singer },
     {path: '/rank', component: Rank },
