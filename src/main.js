@@ -5,8 +5,8 @@ import store from './store'
 import axios from "axios"
 import Mint from 'mint-ui'
 import'mint-ui/lib/style.css'
-import './lib/mui/css/mui.css'
-import './lib/mui/css/icons-extra.css'
+// import './lib/mui/css/mui.css'
+// import './lib/mui/css/icons-extra.css'
 
 
 Vue.config.productionTip = false;

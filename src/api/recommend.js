@@ -1,4 +1,5 @@
 import jsonp from "../common/js/jsonp"
+import axios from "axios"
 import {commonParams,options} from "./config"
 
 export function getRecommend(){
@@ -10,4 +11,8 @@ export function getRecommend(){
     needNewCode:1
   })
   return jsonp(url,data,options)
+}
+
+export function getDiscList(){
+  
 }
