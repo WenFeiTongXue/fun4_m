@@ -7,7 +7,16 @@
         </a>
       </mt-swipe-item>
     </mt-swipe>
-    <h1>热门歌单推荐</h1>
+    <h1 class="listTitle">热门歌单推荐</h1>
+    <div class="listContent">
+      <div class="listItem" v-for="(item,i) of discList" :key="i">
+        <a href="javascript:;"><img :src="item.imgurl" alt=""></a>
+        <div>
+          <h5 v-text="item.creator.name"></h5>
+          <p v-text="item.dissname"></p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -15,7 +24,8 @@
   import {ERR_OK} from "../../api/config.js"
 export default {
   data(){return {
-    slider:[]
+    slider:[],
+    discList:[]
   }},
   methods:{
     _getRecommend(){
@@ -28,10 +38,8 @@ export default {
     },
     _getDiscList(){
       getDiscList().then(res=>{
-        if(res.code===ERR_OK){
-          console.log(res.data)
-          // this.slider=res.data.slider
-        }
+        console.log(res.data)
+        this.discList=res.data.list
       })
     }
   },
@@ -58,5 +66,29 @@ export default {
 .mint-swipe img{
   width:100%;
 }
+.listTitle{
+  text-align: center;
+  height: 65px;
+  line-height: 65px
+}
+.listContent .listItem{
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  padding: 0 20px 20px 20px;
+  height:100px;
+}
+.listContent .listItem div{
+  margin-left:10px;
+  height:80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.listContent .listItem a,.listContent .listItem img{
+  width:80px;
+  height:80px
+} 
 </style>
 
+ 
