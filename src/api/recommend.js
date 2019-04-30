@@ -14,5 +14,11 @@ export function getRecommend(){
 }
 
 export function getDiscList(){
-  
+  const data=Object.assign({},commonParams,{
+    platform:"h5",
+    uin:0,
+    needNewCode:1,
+    _: 1513317614040
+  })
+  return jsonp("/apis/splcloud/fcgi-bin/gethotkey.fcg?",data,options)
 }

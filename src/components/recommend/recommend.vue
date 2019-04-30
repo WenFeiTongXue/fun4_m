@@ -1,9 +1,9 @@
 <template>
   <div>
     <mt-swipe :auto="4000">
-      <mt-swipe-item v-for="(s,i) of slider" :key="i">
+      <mt-swipe-item v-for="(s,i) of slider" :key="i" >
         <a href="javascript">
-          <img :src="s.picUrl" alt="">
+          <img :src="s.picUrl" alt="" ref="imgs">
         </a>
       </mt-swipe-item>
     </mt-swipe>
@@ -39,12 +39,21 @@ export default {
     this._getRecommend();
     this._getDiscList();
   },
+  mounted(){
+    // console.log(this.$refs.mints)
+    // console.log(this.$refs.imgs)
+  }
 }
 </script>
 <style scoped>
 .mint-swipe{
   margin-top:1rem;
   height:10rem;
+}
+.mint-swipe::after{
+  display: block;
+  content:"";
+  clear: both;
 }
 .mint-swipe img{
   width:100%;
