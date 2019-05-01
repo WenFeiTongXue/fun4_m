@@ -8,11 +8,13 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "better-scroll": "^0.1.15",
     "core-js": "^2.6.5",
     "cors": "^2.8.5",
     "jsonp": "^0.2.1",
     "mint-ui": "^2.2.13",
     "vue": "^2.6.10",
+    "vue-lazyload": "^1.2.6",
     "vue-router": "^3.0.3",
     "vuex": "^3.0.1"
   },

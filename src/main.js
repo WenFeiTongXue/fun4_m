@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import axios from "axios"
 import Mint from 'mint-ui'
+import VueLazyload from 'vue-lazyload'
 import 'mint-ui/lib/style.css'
 // import './lib/mui/css/mui.css'
 // import './lib/mui/css/icons-extra.css'
@@ -14,6 +15,9 @@ Vue.config.productionTip = false;
 Vue.prototype.axios = axios
 
 Vue.use(Mint);
+Vue.use(VueLazyload,{
+  loading:require("./common/img/default.png")
+})
 
 new Vue({
   router,
