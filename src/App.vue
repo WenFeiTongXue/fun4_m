@@ -20,8 +20,4 @@ export default {
 </script>
 
 <style>
-body{
-  background:#000;
-  color:rgb(255, 113, 213)
-}
 </style>
