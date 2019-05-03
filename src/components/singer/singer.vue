@@ -6,7 +6,7 @@
         <p class="stitle">{{t.title}}</p>
         <ul>
           <li v-for="(n,j) of singerList[i].items" :key="j" class="sname">
-            <img :src="`https://y.gtimg.cn/music/photo_new/T001R150x150M000${n.Fsinger_mid}.jpg?max_age=2592000`" alt="">
+            <img v-lazy="`https://y.gtimg.cn/music/photo_new/T001R150x150M000${n.Fsinger_mid}.jpg?max_age=2592000`" alt="">
             <a href="javascript:;"><p>{{n.Fsinger_name}}</p></a>
           </li>
         </ul>

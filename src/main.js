@@ -13,7 +13,6 @@ import 'mint-ui/lib/style.css'
 Vue.config.productionTip = false;
 // axios.defaults.withCredentials=true
 Vue.prototype.axios = axios
-
 Vue.use(Mint);
 Vue.use(VueLazyload,{
   loading:require("./common/img/default.png")
