@@ -7,10 +7,15 @@
         <ul>
           <li v-for="(n,j) of singerList[i].items" :key="j" class="sname">
             <img v-lazy="`https://y.gtimg.cn/music/photo_new/T001R150x150M000${n.Fsinger_mid}.jpg?max_age=2592000`" alt="">
-            <a href="javascript:;"><p>{{n.Fsinger_name}}</p></a>
+            <router-link :to="`songs/${n.Fsinger_mid}`"><p>{{n.Fsinger_name}}</p></router-link>
           </li>
         </ul>
       </div>
+        <!-- <mt-index-list>
+          <mt-index-section :index="t.title" v-for="(t,i) of singerList" :key="i">
+            <mt-cell :title="n.Fsinger_name" v-for="(n,j) of singerList[i].items" :key="j"></mt-cell>
+          </mt-index-section>
+        </mt-index-list> -->
       </div>
     </scroll>
   </div>
@@ -100,7 +105,7 @@ export default {
   border:1px solid #222;
 }
 .sname img{
-  width:80px;
+  width:60px;
   border-radius: 50%;
 }
 </style>

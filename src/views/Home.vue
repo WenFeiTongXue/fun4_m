@@ -36,9 +36,10 @@ export default {
   components: {},
   created() {
     console.log(this.playing)
-    // this.set_playing_state(this.$store.state,true)
+    this.set_playing_state(true);
     console.log(this.playing)
-    console.log(this.$store.getters.playing)
+    
+    // console.log(this.$store.getters.playing)
     // this.axios
     //   .get(
     //     "/apis/splcloud/fcgi-bin/gethotkey.fcg?g_tk=5381&uin=0&format=json&inCharset=utf-8&outCharset=utf-8&notice=0&platform=h5&needNewCode=1&_=1513317614040"

@@ -37,7 +37,7 @@ export default new Vuex.Store({
   },
   mutations: {
     set_playing_state(state,flag){
-      state.palying=flag
+      state.playing=flag
     },
     set_full_screen(state,flag){
       state.fullScreen=flag

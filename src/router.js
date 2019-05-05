@@ -4,6 +4,7 @@ import Home from './views/Home.vue'
 import Player from './views/player.vue'
 import Recommend from "./components/recommend/recommend.vue"
 import Singer from "./components/singer/singer.vue"
+import Songs from "./base/songs/songs.vue"
 import Rank from "./components/rank/rank.vue"
 import Search from "./components/search/search.vue"
 
@@ -14,6 +15,7 @@ export default new Router({
     {path: '/', component: Home },
     {path: '/recommend', component: Recommend },
     {path: '/singer', component: Singer },
+    {path: '/songs/:id', component: Songs ,props:true},
     {path: '/rank', component: Rank },
     {path: '/search', component: Search },
     {path: '/player', component: Player },
