@@ -9,6 +9,7 @@
   </div>
 </template>
 <script>
+import "../src/common/fonts/music-icon.css"
 import "../src/common/css/body.css"
 import MHeader from "./components/m-header/m-header"
 import Player from "./components/player/player"

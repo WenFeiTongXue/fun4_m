@@ -52,7 +52,6 @@
   </div>
 </template>
 <script>
-import "../../common/fonts/music-icon.css"
 import {mapGetters} from "vuex"
 export default {
   computed:{
