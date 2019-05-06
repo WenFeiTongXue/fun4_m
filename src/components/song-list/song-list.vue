@@ -37,6 +37,8 @@
 </template>
 <script>
 import Scroll from "../../base/scroll/scroll"
+import {mapMutations} from "vuex"
+import {mapGetters} from "vuex"
 export default {
   props:["singer","songs","times","songid","mid","total"],
   data(){
@@ -47,15 +49,28 @@ export default {
   computed:{
     bgStyle() {
       return "background-image:url(https://y.gtimg.cn/music/photo_new/T001R300x300M000"+this.mid+".jpg?max_age=2592000)"
-    }
+    },
+    ...mapGetters([
+      "playList",
+      "currentSong"
+    ])
   },
   methods:{
+    ...mapMutations([
+      "set_playing_state",
+      "set_play_list",
+      "set_current_index"
+    ]),
     back(){
       // console.log(this.$route)
       this.$router.push("/")
     },
     random(){
-
+      this.set_play_list(this.songid)
+      console.log(~~(Math.random()*this.songid.length))
+      this.set_current_index(~~(Math.random()*this.songid.length))
+      console.log(this.currentSong)
+      this.set_playing_state(true)
     },
     listenScroll(){
 

@@ -2,7 +2,7 @@
   <div class="player" v-show="playList.length>0">
     <div class="normal-player" v-show="fullScreen">
       <div class="background">
-        <img :src="currentSong.image" alt="" width="100%" height="100%">
+        <img :src="`https://api.itooi.cn/music/tencent/pic?id=${currentSong}&key=579621905`" alt="" width="100%" height="100%">
       </div>
       <div class="top">
         <div class="back">
@@ -14,8 +14,8 @@
       <div class="middle">
         <div class="middle-l">
           <div class="cd-wrapper">
-            <div class="cd">
-              <img :src="currentSong.image" alt="" class="image">
+            <div class="cd play" :class="`${playing?'play':'pause'}`">
+              <img :src="`https://api.itooi.cn/music/tencent/pic?id=${currentSong}&key=579621905`" alt="" class="image">
             </div>
           </div>
         </div>
@@ -25,13 +25,13 @@
           <div class="icon i-left">
             <i class="icon-random"></i>
           </div>
-          <div class="icon i-left">
+          <div class="icon i-left" @click="prev">
             <i class="icon-prev"></i>
           </div>
-          <div class="icon i-center">
+          <div class="icon i-center"  @click="play">
             <i class="icon-play"></i>
           </div>
-          <div class="icon i-right">
+          <div class="icon i-right"  @click="prev">
             <i class="icon-next"></i>
           </div>
           <div class="icon i-right">
@@ -49,6 +49,7 @@
         <p class="desc" v-html="currentSong.singer"></p>
       </div>
     </div>
+    <audio ref="audio" :src="`https://api.itooi.cn/music/tencent/url?key=579621905&id=${currentSong}`" autoplay></audio>
   </div>
 </template>
 <script>
@@ -68,13 +69,31 @@ export default {
   },
   methods:{
     ...mapMutations([
-      "set_full_screen"
+      "set_playing_state",
+      "set_full_screen",
+      "set_current_index"
     ]),
     close(){
       this.set_full_screen(false)
     },
     open(){
       this.set_full_screen(true)
+    },
+    prev(){
+      this.set_current_index(this.currentIndex-1)
+    },
+    next(){
+      this.set_current_index(this.currentIndex+1)
+    },
+    play(){
+      if(this.$refs.audio.paused){
+        this.$refs.audio.play()
+        this.set_playing_state(true)
+      }
+      else{
+        this.set_playing_state(false)
+        this.$refs.audio.pause()
+      }
     }
   }
 }

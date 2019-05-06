@@ -28,6 +28,7 @@ export default {
       getSongs(this.mid).then(res=>{
         let result=res
         this.total=res.cdlist[0].songlist
+        console.log(res)
         console.log(this.total)
         // result.forEach((item,index)=>{
         //   this.songid.push(item.musicData.songmid)
