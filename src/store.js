@@ -6,8 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     playing:false,
-    fullScreen:true,
-    playList:[1],//播放列表
+    fullScreen:false,
+    playList:[],//播放列表
     sequenceList:[],//顺序列表
     mode:0,//播放模式,0顺序,1单曲,2随机
     currentIndex:-1//当前播放位置
