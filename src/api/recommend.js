@@ -40,3 +40,11 @@ export function getDiscList(){
     // console.log(res)
   })
 }
+
+export function getSongs(mid){
+  const url="/apis/qzone/fcg-bin/fcg_ucc_getcdinfo_byids_cp.fcg?type=1&json=1&utf8=1&onlysong=0&disstid="+mid+"&format=json&g_tk=5381&loginUin=0&hostUin=0&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq&needNewCode=0"
+  return axios.get(url).then((res) => {
+    return Promise.resolve(res.data)
+    // console.log(res)
+  })
+}

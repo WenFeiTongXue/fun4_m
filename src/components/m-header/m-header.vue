@@ -13,13 +13,37 @@
 </script>
 
 <style scoped>
-.m-header{
+.m-header {
+  position: relative;
+  height: 44px;
   text-align: center;
-  background:#010101;
-  color:#ddd;
-  font-size: 32px;
+  color: rgb(255, 113, 213);
+  font-size: 0;
 }
-.text{
-  margin:0;
+.m-header .icon {
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 6px;
+  width: 30px;
+  height: 32px;
+  margin-right: 9px;
+  background-size: 30px 32px;
+}
+.m-header .text {
+  display: inline-block;
+  vertical-align: top;
+  line-height: 44px;
+  font-size: 30px;
+}
+.m-header .mine {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.m-header .mine .icon-mine {
+  display: block;
+  padding: 12px;
+  font-size: 20px;
+  color: rgb(255, 113, 213);
 }
 </style>

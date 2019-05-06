@@ -18,7 +18,7 @@
               <a href="javascript:;">
                 <img v-lazy="item.imgurl" alt>
               </a>
-              <div>
+              <div @click="toSongList(item.dissid)">
                 <h5 v-text="item.creator.name"></h5>
                 <p v-text="item.dissname"></p>
               </div>
@@ -45,6 +45,9 @@ export default {
   },
   computed: {},
   methods: {
+    toSongList(mid){
+      this.$router.push("./songs/"+mid)
+    },
     _getRecommend() {
       getRecommend().then(res => {
         if (res.code === ERR_OK) {
@@ -55,7 +58,7 @@ export default {
     },
     _getDiscList() {
       getDiscList().then(res => {
-        console.log(res.data);
+        console.log(res.data.list);
         this.discList = res.data.list;
       });
     }

@@ -6,7 +6,7 @@
       </div>
       <div class="top">
         <div class="back">
-          <i class="icon-back"></i>
+          <i class="icon-back" @click="close"></i>
         </div>
         <h1 class="title" v-html="currentSong.name"></h1>
         <h2 class="subtitle" v-html="currentSong.singer"></h2>
@@ -40,7 +40,7 @@
         </div>
       </div>
     </div>
-    <div class="mini-player" v-show="!fullScreen">
+    <div class="mini-player" v-show="!fullScreen" @click="open">
       <div class="icon">
         <img src="" alt="" width="40%" height="40%">
       </div>
@@ -54,6 +54,7 @@
 <script>
 import "../../common/fonts/music-icon.css"
 import {mapGetters} from "vuex"
+import {mapMutations} from "vuex"
 export default {
   computed:{
     ...mapGetters([
@@ -65,6 +66,17 @@ export default {
       'currentIndex',
       "currentSong"
     ])
+  },
+  methods:{
+    ...mapMutations([
+      "set_full_screen"
+    ]),
+    close(){
+      this.set_full_screen(false)
+    },
+    open(){
+      this.set_full_screen(true)
+    }
   }
 }
 </script>

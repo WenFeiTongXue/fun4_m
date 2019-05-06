@@ -7,7 +7,7 @@
         <ul>
           <li v-for="(n,j) of singerList[i].items" :key="j" class="sname">
             <img v-lazy="`https://y.gtimg.cn/music/photo_new/T001R150x150M000${n.Fsinger_mid}.jpg?max_age=2592000`" alt="">
-            <router-link :to="`songs/${n.Fsinger_mid}`"><p>{{n.Fsinger_name}}</p></router-link>
+            <router-link :to="`singerdetail/${n.Fsinger_mid}`"><p>{{n.Fsinger_name}}</p></router-link>
           </li>
         </ul>
       </div>
