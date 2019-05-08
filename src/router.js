@@ -7,6 +7,7 @@ import Singer from "./components/singer/singer.vue"
 import SingerDetail from "./components/singer-detail/singer-detail.vue"
 import Songs from "./components/songs/songs.vue"
 import Rank from "./components/rank/rank.vue"
+import RankDetail from "./components/rank-detail/rank-detail.vue"
 import Search from "./components/search/search.vue"
 
 Vue.use(Router)
@@ -18,7 +19,9 @@ export default new Router({
     {path: '/singer', component: Singer },
     {path: '/singerdetail/:mid', component: SingerDetail,props:true },
     {path: '/songs/:mid', component: Songs ,props:true},
-    {path: '/rank', component: Rank },
+    {path: '/rank', component: Rank ,children:[
+      {path:":mid",component:RankDetail}
+    ]},
     {path: '/search', component: Search },
     {path: '/player', component: Player },
   ]
