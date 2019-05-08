@@ -3,10 +3,10 @@
     <div class="back">
       <i class="icon-back" @click="back"></i>
     </div>
-    <h1 class="title">{{singer[0]}}</h1>
-    <div class="bg-image" :style="bgStyle" ref="bgImage">
+    <h1 class="title">{{title}}</h1>
+    <div class="bg-image" :style="bgImg" ref="bgImage">
       <div class="play-wrapper">
-        <div ref="playBtn" v-show="songs.length>0" class="play" @click="random">
+        <div ref="playBtn" v-show="total.length>0" class="play" @click="random">
           <i class="icon-play"></i>
           <span class="text">随机播放全部</span>
         </div>
@@ -14,24 +14,24 @@
       <div class="filter" ref="filter"></div>
     </div>
     <div class="bg-layer" ref="layer">
-   <scroll :data="songs" class="list" ref="list">
-      <div class="song-list-wrapper">
-        <div class="song-list">
-          <ul>
-            <li class="item" v-for="(s,i) of total" :key="i">
-              <div class="rank">
-                <span :class="getRankCls(i)"></span>
-              </div>
-              <div class="content">
-                <h2 class="name">{{songs[i]}}</h2>
-                <p class="desc">{{singer[i]}}</p>
-              </div>
-            </li>
-          </ul>
+      <scroll :data="total" class="list" ref="list">
+        <div class="song-list-wrapper">
+          <div class="song-list">
+            <ul>
+              <li class="item" v-for="(s,i) of total" :key="i" @click="chose(total[i])">
+                <div class="rank">
+                  <span :class="getRankCls(i)"></span>
+                </div>
+                <div class="content">
+                  <h2 class="name">{{total[i].songs}}</h2>
+                  <p class="desc">{{total[i].singer}}</p>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-    </scroll> 
-  </div>
+      </scroll> 
+    </div>
   </div>
 
 </template>
@@ -40,36 +40,52 @@ import Scroll from "../../base/scroll/scroll"
 import {mapMutations} from "vuex"
 import {mapGetters} from "vuex"
 export default {
-  props:["singer","songs","times","songid","mid","total"],
+  props:["mid","total","backUrl","bgImg","title"],
   data(){
     return {
       
     }
   },
   computed:{
-    bgStyle() {
-      return "background-image:url(https://y.gtimg.cn/music/photo_new/T001R300x300M000"+this.mid+".jpg?max_age=2592000)"
-    },
+    // bgStyle() {
+    //   return 
+    // },
     ...mapGetters([
       "playList",
+      "currentIndex",
       "currentSong"
     ])
+  },
+  watch:{
+    playList(){
+      console.log(this.playList)
+    }
   },
   methods:{
     ...mapMutations([
       "set_playing_state",
       "set_play_list",
-      "set_current_index"
+      "set_current_index",
+      "set_play_list_add"
     ]),
     back(){
       // console.log(this.$route)
-      this.$router.push("/")
+      this.$router.push(this.backUrl)
+    },
+    chose(item){
+      this.set_play_list_add(item)
+      this.set_current_index(0)
+    
+      console.log(this.playList)
     },
     random(){
-      this.set_play_list(this.songid)
-      console.log(~~(Math.random()*this.songid.length))
-      this.set_current_index(~~(Math.random()*this.songid.length))
-      console.log(this.currentSong)
+      // this.set_play_list(this.songid)
+      // console.log(~~(Math.random()*this.songid.length))
+      // this.set_current_index(~~(Math.random()*this.songid.length))
+      // console.log(this.currentSong)
+      // this.set_playing_state(true)
+      this.set_play_list(this.total)
+      this.set_current_index(~~(Math.random()*this.total.length))
       this.set_playing_state(true)
     },
     listenScroll(){
@@ -84,7 +100,6 @@ export default {
     },
   },
   created(){
-    
   },
   components:{
     Scroll
@@ -197,6 +212,7 @@ export default {
   box-sizing: border-box;
   height: 64px;
   font-size: 14px;
+  background: #333;
 }
 .song-list .item .rank {
   flex: 0 0 25px;

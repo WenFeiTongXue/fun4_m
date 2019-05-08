@@ -45,6 +45,9 @@ export default new Vuex.Store({
     set_play_list(state,list){
       state.playList=list 
     },
+    set_play_list_add(state,item){
+      state.playList.unshift(item)
+    },
     set_sequence_list(state,list){
       state.sequenceList=list
     },

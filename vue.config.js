@@ -1,7 +1,11 @@
 // vue.config.js
 module.exports = {
+  // 基本路径
+  publicPath: './',
+  // 输出文件目录
+  outputDir: 'dist',
   devServer: {
-      port: 8080,
+      port: 8000,
       proxy: {
           '/apis': {
               target: 'https://c.y.qq.com',  // target host

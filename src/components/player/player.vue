@@ -2,20 +2,20 @@
   <div class="player" v-show="playList.length>0">
     <div class="normal-player" v-show="fullScreen">
       <div class="background">
-        <img :src="`https://api.itooi.cn/music/tencent/pic?id=${currentSong}&key=579621905`" alt="" width="100%" height="100%">
+        <img :src="currentSong.albumImg" alt="" width="100%" height="100%">
       </div>
       <div class="top">
         <div class="back">
           <i class="icon-back" @click="close"></i>
         </div>
-        <h1 class="title" v-html="currentSong.name"></h1>
+        <h1 class="title" v-html="currentSong.songs"></h1>
         <h2 class="subtitle" v-html="currentSong.singer"></h2>
       </div>
       <div class="middle">
         <div class="middle-l">
           <div class="cd-wrapper">
             <div class="cd play" :class="`${playing?'play':'pause'}`">
-              <img :src="`https://api.itooi.cn/music/tencent/pic?id=${currentSong}&key=579621905`" alt="" class="image">
+              <img :src="currentSong.albumImg" alt="" class="image">
             </div>
           </div>
         </div>
@@ -29,9 +29,9 @@
             <i class="icon-prev"></i>
           </div>
           <div class="icon i-center"  @click="play">
-            <i class="icon-play"></i>
+            <i  :class="`icon-${playing==true?'pause':'play'}`"></i>
           </div>
-          <div class="icon i-right"  @click="prev">
+          <div class="icon i-right"  @click="next">
             <i class="icon-next"></i>
           </div>
           <div class="icon i-right">
@@ -41,21 +41,26 @@
       </div>
     </div>
     <div class="mini-player" v-show="!fullScreen" @click="open">
-      <div class="icon">
-        <img src="" alt="" width="40%" height="40%">
+      <div class="icon"  @click.stop="play">
+        <i :class="`icon-${playing==true?'pause':'play'}`" width="40%" height="40%"></i>
       </div>
       <div class="text">
-        <h2 class="name" v-html="currentSong.name"></h2>
+        <h2 class="name" v-html="currentSong.songs"></h2>
         <p class="desc" v-html="currentSong.singer"></p>
       </div>
     </div>
-    <audio ref="audio" :src="`https://api.itooi.cn/music/tencent/url?key=579621905&id=${currentSong}`" autoplay></audio>
+    <audio ref="audio" :src="url" autoplay @ended="next"></audio>
   </div>
 </template>
 <script>
 import {mapGetters} from "vuex"
 import {mapMutations} from "vuex"
+import {getVkey} from "../../api/player.js"
+import {getLrc} from "../../api/player.js"
 export default {
+  data(){return {
+    url:"",
+  }},
   computed:{
     ...mapGetters([
       'playing',
@@ -67,12 +72,29 @@ export default {
       "currentSong"
     ])
   },
+  watch:{
+    currentSong(){
+      this.set_playing_state(true)
+      this.getSongAddr(this.currentSong.songid)
+      getLrc(this.currentSong.songid)
+    }
+  },
   methods:{
     ...mapMutations([
       "set_playing_state",
       "set_full_screen",
-      "set_current_index"
+      "set_current_index",
+      
     ]),
+    getSongAddr(mid){
+      getVkey(mid).then(res=>{
+        console.log(res)
+        var vkey=res.data.items[0].vkey
+        // this.url="http://dl.stream.qqmusic.qq.com/C400"+mid+".m4a?vkey="+vkey+"&guid=3655047200&fromtag=66"
+       this.url="http://dl.stream.qqmusic.qq.com/C400"+mid+".m4a?vkey="+vkey+"&guid=7332953645&uin=1297716249&fromtag=66"
+        console.log(this.url)
+      })
+    },
     close(){
       this.set_full_screen(false)
     },
@@ -80,9 +102,17 @@ export default {
       this.set_full_screen(true)
     },
     prev(){
+      if(this.currentIndex==0){
+        this.$toast("没有上一曲了")
+        return
+      }
       this.set_current_index(this.currentIndex-1)
     },
     next(){
+      if(this.currentIndex==this.playList.length-1){
+        this.$toast("没有下一曲了")
+        return
+      }
       this.set_current_index(this.currentIndex+1)
     },
     play(){
@@ -145,12 +175,14 @@ export default {
   white-space: nowrap;
   font-size: 18px;
   color: #fff;
+  background-color: transparent;
 }
 .player .normal-player .top .subtitle {
   line-height: 20px;
   text-align: center;
   font-size: 14px;
   color: #fff;
+  background-color: transparent;
 }
 .player .normal-player .middle {
   position: fixed;
@@ -336,7 +368,7 @@ export default {
   z-index: 180;
   width: 100%;
   height: 60px;
-  background: #333;
+  background: #222;
 }
 .player .mini-player.mini-enter-active,
 .player .mini-player.mini-leave-active {
