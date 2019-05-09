@@ -22,8 +22,8 @@
       </div>
       <div class="bottom">
         <div class="operators">
-          <div class="icon i-left">
-            <i class="icon-random"></i>
+          <div class="icon i-left" @click="changeMode">
+            <i :class="`icon-${mode==0?'sequence':mode==1?'loop':'random'}`" ></i>
           </div>
           <div class="icon i-left" @click="prev">
             <i class="icon-prev"></i>
@@ -84,8 +84,16 @@ export default {
       "set_playing_state",
       "set_full_screen",
       "set_current_index",
-      
+      "set_play_mode"
     ]),
+    changeMode(){
+      if(this.mode<2){
+        this.set_play_mode(this.mode+1)
+      }else{
+        this.set_play_mode(0)
+      }
+      console.log(this.mode)
+    },
     getSongAddr(mid){
       getVkey(mid).then(res=>{
         console.log(res)
@@ -109,6 +117,14 @@ export default {
       this.set_current_index(this.currentIndex-1)
     },
     next(){
+      if(this.mode==1){
+        this.set_current_index(this.currentIndex)
+        return
+      }
+      if(this.mode==2){
+        this.set_current_index(~~(Math.random()*this.playList.length))
+         return
+      }
       if(this.currentIndex==this.playList.length-1){
         this.$toast("没有下一曲了")
         return

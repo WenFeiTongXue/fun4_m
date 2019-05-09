@@ -46,7 +46,7 @@ export default {
   computed: {},
   methods: {
     toSongList(mid){
-      this.$router.push("./songs/"+mid)
+      this.$router.push("/songs/"+mid)
     },
     _getRecommend() {
       getRecommend().then(res => {

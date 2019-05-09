@@ -12,7 +12,9 @@
         </div>
       </div>
     </scroll>
-    <router-view class="detail"></router-view>
+    <transition name="detail">
+      <router-view v-if="show" class=rankdetail :mid="mid"></router-view>
+    </transition>
   </div>
 </template>
 <script>
@@ -21,7 +23,9 @@ import {getRankList} from "../../api/rank.js"
 import { setTimeout } from 'timers';
 export default {
   data(){return {
-    rankList:[]
+    rankList:[],
+    show:false,
+    mid:0
   }},
   mounted(){
     setTimeout(()=>{
@@ -32,6 +36,7 @@ export default {
   methods:{
     toListDetail(id){
       this.$router.push("/rank/"+id)
+      this.show=true
     },
     _getRankList(){
       getRankList().then(res=>{
@@ -40,14 +45,28 @@ export default {
       })
     }
   },
+  watch:{
+    $route(){
+      this.mid=this.$route.params.mid
+    }
+  },
   components:{
     Scroll
   }
 }
 </script>
 <style scoped>
+.detail-enter-active,.detail-leave-active{
+  transition: opacity .5s;
+}
+.detail-enter,.detail-leave-to{
+  opacity:0
+}
 .ranklist{
-  margin-top:30px;
+  position: fixed;
+  width: 100%;
+  top: 88px;
+  bottom: 0;
 }
 .listContent{
   height:100%;
@@ -77,7 +96,7 @@ export default {
   width: 80px;
   height: 80px;
 }
-.detail{
+.rankdetail{
   position:fixed;
   top:0;
   bottom:0;
