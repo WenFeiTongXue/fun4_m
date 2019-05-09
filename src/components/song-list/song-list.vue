@@ -75,8 +75,6 @@ export default {
     chose(item){
       this.set_play_list_add(item)
       this.set_current_index(0)
-    
-      console.log(this.playList)
     },
     random(){
       // this.set_play_list(this.songid)
@@ -197,9 +195,12 @@ export default {
   /* background: #222; */
   overflow: hidden;
 }
-.music-list .list .song-list-wrapper {
-  /* padding: 20px 30px; */padding:0;
-}
+/* .music-list .list .song-list-wrapper {
+  position:absolute;
+  top:0;
+  padding: 20px 30px;padding:0;
+  padding-top:30%
+} */
 .music-list .list .loading-container {
   position: absolute;
   width: 100%;
