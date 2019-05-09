@@ -16,8 +16,10 @@ export default new Router({
   routes: [
     {path: '/', component: Recommend },
     {path: '/recommend', component: Recommend },
-    {path: '/singer', component: Singer },
-    {path: '/singerdetail/:mid', component: SingerDetail,props:true },
+    {path: '/singer', component: Singer ,children:[
+      {path:":mid",component:SingerDetail}
+    ]},
+    // {path: '/singerdetail/:mid', component: SingerDetail,props:true },
     {path: '/songs/:mid', component: Songs ,props:true},
     {path: '/rank', component: Rank ,children:[
       {path:":mid",component:RankDetail}

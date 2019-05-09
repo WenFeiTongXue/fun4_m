@@ -1,5 +1,5 @@
 <template>
-  <div>歌单详情
+  <div>
     <song-list v-show="total.length>0" :mid="mid" :total="total" :backUrl="backUrl" :bgImg="bgImg" :title="title"></song-list>
   </div>
   

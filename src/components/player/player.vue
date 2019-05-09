@@ -21,6 +21,7 @@
         </div>
       </div>
       <div class="bottom">
+        <mt-range v-model="rangeValue"></mt-range>
         <div class="operators">
           <div class="icon i-left" @click="changeMode">
             <i :class="`icon-${mode==0?'sequence':mode==1?'loop':'random'}`" ></i>
@@ -49,7 +50,7 @@
         <p class="desc" v-html="currentSong.singer"></p>
       </div>
     </div>
-    <audio ref="audio" :src="url" autoplay @ended="next"></audio>
+    <audio ref="audio" :src="url" autoplay @ended="next" volume="0.5" @timeupdate="songplay"></audio>
   </div>
 </template>
 <script>
@@ -60,6 +61,7 @@ import {getLrc} from "../../api/player.js"
 export default {
   data(){return {
     url:"",
+    rangeValue:0
   }},
   computed:{
     ...mapGetters([
@@ -73,6 +75,9 @@ export default {
     ])
   },
   watch:{
+    rangeValue(){
+      // this.$refs.audio.currentTime=this.rangeValue/100*this.currentSong.times
+    },
     currentSong(){
       this.set_playing_state(true)
       this.getSongAddr(this.currentSong.songid)
@@ -86,6 +91,9 @@ export default {
       "set_current_index",
       "set_play_mode"
     ]),
+    songplay(){
+      this.rangeValue=(this.$refs.audio.currentTime/this.currentSong.times)*100
+    },
     changeMode(){
       if(this.mode<2){
         this.set_play_mode(this.mode+1)

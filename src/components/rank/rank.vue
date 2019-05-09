@@ -12,7 +12,7 @@
         </div>
       </div>
     </scroll>
-    <transition name="detail">
+    <transition name="slide-fade">
       <router-view v-if="show" class=rankdetail :mid="mid"></router-view>
     </transition>
   </div>
@@ -56,12 +56,23 @@ export default {
 }
 </script>
 <style scoped>
-.detail-enter-active,.detail-leave-active{
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active for below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
+/* .detail-enter-active,.detail-leave-active{
   transition: opacity .5s;
 }
 .detail-enter,.detail-leave-to{
   opacity:0
-}
+} */
 .ranklist{
   position: fixed;
   width: 100%;

@@ -88,13 +88,14 @@ export default {
 }
 .search .searchContent{
   margin:0 auto;
-  width:90%;
+  width:80%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   background-color:#fff;
   border-radius: 14px;
   line-height: 28px;
   align-items: baseline;
+  padding:0 20px
 }
 .search .searchContent input{
   height:28px;
@@ -116,12 +117,14 @@ export default {
   padding:10px;
 }
 .song-list .item {
+  width:80%;
   display: flex;
   align-items: center;
   box-sizing: border-box;
   height: 64px;
   font-size: 14px;
   background: #333;
+  margin:0 auto;
 }
 .song-list .item .rank {
   flex: 0 0 25px;

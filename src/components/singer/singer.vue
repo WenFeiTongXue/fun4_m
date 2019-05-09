@@ -5,9 +5,9 @@
       <div v-for="(t,i) of singerList" :key="i">
         <p class="stitle">{{t.title}}</p>
         <ul>
-          <li v-for="(n,j) of singerList[i].items" :key="j" class="sname">
+          <li v-for="(n,j) of singerList[i].items" :key="j" class="sname" @click="toSingerDetail(n.Fsinger_mid)">
             <img v-lazy="`https://y.gtimg.cn/music/photo_new/T001R150x150M000${n.Fsinger_mid}.jpg?max_age=2592000`" alt="">
-            <router-link :to="`/singerdetail/${n.Fsinger_mid}`"><p>{{n.Fsinger_name}}</p></router-link>
+            <p>{{n.Fsinger_name}}</p>
           </li>
         </ul>
       </div>
@@ -18,6 +18,9 @@
         </mt-index-list> -->
       </div>
     </scroll>
+    <transition name="detail">
+      <router-view v-if="show" :mid="mid"></router-view>
+    </transition>
   </div>
 </template>
 <script>
@@ -26,8 +29,14 @@ import Scroll from "../../base/scroll/scroll";
 export default {
   data(){return {
     singerList:[],
+    mid:"",
+    show:false
   }},
   methods:{
+    toSingerDetail(id){
+      this.$router.push("/singer/"+id)
+      this.show=true
+    },
     _getSingerList(){
       getSingerList().then(res=>{
         let list=res.data.list
@@ -68,7 +77,6 @@ export default {
         oth.sort((a,b)=>{
           return a.title.charCodeAt(0)-b.title.charCodeAt(0);
         })
-        console.log(oth)
         this.singerList=hot.concat(oth)
       })
     }
@@ -78,7 +86,12 @@ export default {
   },
   components:{
     Scroll
-  }
+  },
+  watch:{
+    $route(){
+      this.mid=this.$route.params.mid
+    }
+  },
 }
 </script>
 <style scoped>
@@ -108,5 +121,12 @@ export default {
   width:60px;
   border-radius: 50%;
 }
+.detail-enter-active,.detail-leave-active{
+  transition: all .5s;
+}
+.detail-enter,.detail-leave-to{
+  opacity: 0;
+}
+
 </style>
 

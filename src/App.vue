@@ -24,4 +24,15 @@ export default {
 </script>
 
 <style>
+.mt-range .mt-range-content{
+  margin-right:20px;
+}
+.mt-range .mt-range-progress{
+  background-color:rgb(255, 113, 213)
+}
+.mt-range .mt-range-thumb{
+  width:20px;
+  height:20px;
+  top:5px;
+}
 </style>
