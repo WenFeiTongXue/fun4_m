@@ -1,7 +1,7 @@
 import axios from "axios"
 export function getVkey(mid){
   // const url="/apis/base/fcgi-bin/fcg_music_express_mobile3.fcg?g_tk=1278911659&hostUin=0&format=json&inCharset=utf8&outCharset=utf-8&notice=0&platform=yqq&needNewCode=0&cid=205361747&uin=0&songmid="+mid+"&filename=C400"+mid+".m4a&guid=3655047200"
-  const url="/apis/base/fcgi-bin/fcg_music_express_mobile3.fcg"
+  const url="./apis/base/fcgi-bin/fcg_music_express_mobile3.fcg"
 const params={
         g_tk:195219765,
         loginUin:1297716249, //可以传空值

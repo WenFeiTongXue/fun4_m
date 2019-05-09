@@ -4,6 +4,7 @@ module.exports = {
   publicPath: './',
   // 输出文件目录
   outputDir: 'dist',
+  assetsDir: './',
   devServer: {
       port: 8000,
       proxy: {
