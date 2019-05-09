@@ -21,7 +21,11 @@
         </div>
       </div>
       <div class="bottom">
-        <mt-range v-model="rangeValue"></mt-range>
+        <div class='progress-wrapper'>
+          <span class="time time-l">{{timestyle(playtime)}}</span>
+          <mt-range  :value="value"  v-model="value" class="progress-wrapper"  @touchend.native="timechange"></mt-range>
+          <span class="time time-r">{{timestyle(currentSong.times)}}</span>
+        </div>
         <div class="operators">
           <div class="icon i-left" @click="changeMode">
             <i :class="`icon-${mode==0?'sequence':mode==1?'loop':'random'}`" ></i>
@@ -50,7 +54,7 @@
         <p class="desc" v-html="currentSong.singer"></p>
       </div>
     </div>
-    <audio ref="audio" :src="url" autoplay @ended="next" volume="0.5" @timeupdate="songplay"></audio>
+    <audio ref="audio" :src="url" autoplay @ended="next" volume="0.1" @timeupdate="songplay"></audio>
   </div>
 </template>
 <script>
@@ -61,7 +65,8 @@ import {getLrc} from "../../api/player.js"
 export default {
   data(){return {
     url:"",
-    rangeValue:0
+    playtime:0,
+    value:0
   }},
   computed:{
     ...mapGetters([
@@ -72,11 +77,12 @@ export default {
       'mode',
       'currentIndex',
       "currentSong"
-    ])
+    ]),
+    // totalTime:t
   },
   watch:{
-    rangeValue(){
-      // this.$refs.audio.currentTime=this.rangeValue/100*this.currentSong.times
+    value(){
+      // this.$refs.audio.currentTime=this.value/100*this.currentSong.times
     },
     currentSong(){
       this.set_playing_state(true)
@@ -85,14 +91,25 @@ export default {
     }
   },
   methods:{
+    timechange(){
+      this.$refs.audio.currentTime=this.value/100*this.currentSong.times
+    },
     ...mapMutations([
       "set_playing_state",
       "set_full_screen",
       "set_current_index",
       "set_play_mode"
     ]),
-    songplay(){
-      this.rangeValue=(this.$refs.audio.currentTime/this.currentSong.times)*100
+    // 设置时间格式
+    timestyle(t){
+      var s = t%60 |0
+      var m = t/60 |0
+      if(s<10)s="0"+s
+      return m+":"+s
+    },
+    songplay(e){
+      this.playtime=e.target.currentTime
+      this.value=(this.$refs.audio.currentTime/this.currentSong.times)*100
     },
     changeMode(){
       if(this.mode<2){
@@ -100,7 +117,6 @@ export default {
       }else{
         this.set_play_mode(0)
       }
-      console.log(this.mode)
     },
     getSongAddr(mid){
       getVkey(mid).then(res=>{
@@ -108,7 +124,6 @@ export default {
         var vkey=res.data.items[0].vkey
         // this.url="http://dl.stream.qqmusic.qq.com/C400"+mid+".m4a?vkey="+vkey+"&guid=3655047200&fromtag=66"
        this.url="http://dl.stream.qqmusic.qq.com/C400"+mid+".m4a?vkey="+vkey+"&guid=7332953645&uin=1297716249&fromtag=66"
-        console.log(this.url)
       })
     },
     close(){

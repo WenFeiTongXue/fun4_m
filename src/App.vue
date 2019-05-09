@@ -33,6 +33,9 @@ export default {
 .mt-range .mt-range-thumb{
   width:20px;
   height:20px;
-  top:5px;
+  top:-9px;
+}
+.mt-range .mt-range-runway{
+  right:0
 }
 </style>
