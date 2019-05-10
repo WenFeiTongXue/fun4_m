@@ -23,8 +23,10 @@ export default {
   methods:{
     _getSongs(){
       getSongs(this.mid).then(res=>{
-        let result=res.cdlist[0].songlist
-        console.log(result)
+        console.log(res)
+        // let result=res.cdlist[0].songlist
+        // console.log(result)
+        let result=res.data[0].songlist
         this.total=[]
         this.bgImg=""
         this.title=""
@@ -36,15 +38,15 @@ export default {
             singer:"",
             albumImg:""
           }
-          a.songid=item.songmid
+          a.songid=item.mid//.songmid
           a.singer=item.singer[0].name
           a.times=item.interval
-          a.songs=item.songname
-          a.albumImg="https://y.gtimg.cn/music/photo_new/T002R300x300M000"+item.albummid+".jpg?max_age=2592000"
+          a.songs=item.name//songname
+          a.albumImg="https://y.gtimg.cn/music/photo_new/T002R300x300M000"+item.album.mid+".jpg?max_age=2592000"//item.albummid
           this.total.push(a);
         })
-        this.bgImg="background-image:url("+res.cdlist[0].logo+")"
-        this.title=res.cdlist[0].dissname
+        this.bgImg="background-image:url("+res.data[0].logo+")"
+        this.title=res.data[0].dissname
         console.log(this.total)
       })
     }

@@ -6,7 +6,7 @@ module.exports = {
   outputDir: 'dist',
   assetsDir: './',
   devServer: {
-      port: 8000,
+      port: 80,
       proxy: {
           '/apis': {
               target: 'https://c.y.qq.com',  // target host

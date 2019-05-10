@@ -122,6 +122,10 @@ export default {
       getVkey(mid).then(res=>{
         console.log(res)
         var vkey=res.data.items[0].vkey
+        if(vkey==""){//获取不到vkey的歌，调用该接口
+          this.url="https://v1.itooi.cn/tencent/url?id="+mid+"&quality=128"
+          return 
+        }
         // this.url="http://dl.stream.qqmusic.qq.com/C400"+mid+".m4a?vkey="+vkey+"&guid=3655047200&fromtag=66"
        this.url="http://dl.stream.qqmusic.qq.com/C400"+mid+".m4a?vkey="+vkey+"&guid=7332953645&uin=1297716249&fromtag=66"
       })

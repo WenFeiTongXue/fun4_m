@@ -53,7 +53,8 @@ export default {
       getSearchList(this.kw).then(res=>{
         console.log(res)
         this.total=[]
-        var result=res.data.song.list
+        var result=res.data.list
+        // var result=res.data.song.list
         result.forEach((item,index)=>{
           let a ={
             songid:"",
