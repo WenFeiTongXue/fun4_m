@@ -65,7 +65,10 @@ export default {
     this._getRecommend();
     this._getDiscList();
   },
-
+  activated(){
+    this._getRecommend();
+    this._getDiscList();
+  },
   components: {
     Slider,
     Scroll

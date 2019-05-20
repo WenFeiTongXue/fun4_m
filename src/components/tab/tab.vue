@@ -21,8 +21,22 @@
 </script>
 
 <style scoped>
-.tab{
+.tab {
   display: flex;
-  justify-content: space-around
+  height: 44px;
+  line-height: 44px;
+  font-size: 14px;
+}
+.tab .tab-item {
+  flex: 1;
+  text-align: center;
+}
+.tab .tab-item .tab-link {
+  padding-bottom: 5px;
+  color: rgba(255,255,255,0.5);
+}
+.tab .tab-item.router-link-active .tab-link {
+  color:rgb(255, 113, 213);
+  border-bottom: 2px solid rgb(255, 113, 213);
 }
 </style>

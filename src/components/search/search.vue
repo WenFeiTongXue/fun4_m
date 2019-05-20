@@ -83,7 +83,7 @@ export default {
 <style scoped>
 .search{
   position: fixed;
-  top:80px;
+  top:90px;
   right:0;
   left:0;
 }
